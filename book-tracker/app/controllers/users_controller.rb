@@ -1,0 +1,26 @@
+class UsersController < ApplicationController
+
+    def index 
+        users = User.all 
+        render json: UserSerializer.new(users)
+    end
+
+
+    def show
+        user = User.find(params[:id])
+        render json: UserSerializer.new(user)
+    end
+
+    def create
+        User.create(user_params)
+    end
+
+
+
+
+    private 
+
+    def user_params 
+        params.require(:user).permit(:username, :password)
+    end
+end
